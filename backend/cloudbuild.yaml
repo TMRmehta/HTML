@@ -1,0 +1,18 @@
+substitutions:
+  _REGION: us-central1
+  _SERVICE: oncosight-dev-api
+
+steps:
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - '$_SERVICE'
+      - '--source=backend/'
+      - '--region=$_REGION'
+      - '--allow-unauthenticated'
+      - '--platform=managed'
+      - '--port=8080'
+      - '--set-env-vars=ENVIRONMENT=production'
+images:
+  - 'gcr.io/$PROJECT_ID/$_SERVICE'
